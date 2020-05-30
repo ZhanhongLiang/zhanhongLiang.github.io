@@ -221,6 +221,19 @@
       </tags>
   </entry>
   <entry>
+    <title>js_animate</title>
+    <url>/2020/05/28/js-animate/</url>
+    <content><![CDATA[<h1 id="offSetLeft设置"><a href="#offSetLeft设置" class="headerlink" title="offSetLeft设置"></a>offSetLeft设置</h1><h2 id="animate方法实现"><a href="#animate方法实现" class="headerlink" title="animate方法实现"></a>animate方法实现</h2>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>animate</tag>
+        <tag>website</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git</title>
     <url>/2020/05/30/git/</url>
     <content><![CDATA[<ul>
@@ -449,21 +462,8 @@
       </categories>
       <tags>
         <tag>github</tag>
+        <tag>website</tag>
         <tag>hexo</tag>
-        <tag>website</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>js_animate</title>
-    <url>/2020/05/28/js-animate/</url>
-    <content><![CDATA[<h1 id="offSetLeft设置"><a href="#offSetLeft设置" class="headerlink" title="offSetLeft设置"></a>offSetLeft设置</h1><h2 id="animate方法实现"><a href="#animate方法实现" class="headerlink" title="animate方法实现"></a>animate方法实现</h2>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>website</tag>
-        <tag>js</tag>
-        <tag>animate</tag>
       </tags>
   </entry>
   <entry>
@@ -702,9 +702,9 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>website</tag>
         <tag>js</tag>
         <tag>animate</tag>
+        <tag>website</tag>
         <tag>html</tag>
         <tag>css</tag>
       </tags>
@@ -717,6 +717,8 @@
 <li>极限导数问题</li>
 </ul>
 <p>1.域、界问题（这类问题均为有界内讨论）</p>
+<a id="more"></a>
+
 <ol>
 <li><p><strong>1域-轴，界-端点</strong>（正常积分，非广义积分）</p>
 <p>牛-莱公式<br>$$<br>\int^b_a{f(x)}=F(b)-F(a)<br>$$</p>
@@ -729,8 +731,6 @@
 </li>
 </ol>
 <p>2.无界或者有界不连续问题（反常积分，广义积分）</p>
-<a id="more"></a>
-
 <h2 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h2><ol>
 <li>一重积分问题：</li>
 <li>二重积分问题</li>
