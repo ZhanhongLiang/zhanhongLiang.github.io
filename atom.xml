@@ -83,11 +83,11 @@
       <category term="前端" scheme="www.robotlive.top/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="website" scheme="www.robotlive.top/tags/website/"/>
-    
       <category term="js" scheme="www.robotlive.top/tags/js/"/>
     
       <category term="animate" scheme="www.robotlive.top/tags/animate/"/>
+    
+      <category term="website" scheme="www.robotlive.top/tags/website/"/>
     
   </entry>
   
@@ -113,11 +113,11 @@
       <category term="前端" scheme="www.robotlive.top/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="website" scheme="www.robotlive.top/tags/website/"/>
-    
       <category term="js" scheme="www.robotlive.top/tags/js/"/>
     
       <category term="animate" scheme="www.robotlive.top/tags/animate/"/>
+    
+      <category term="website" scheme="www.robotlive.top/tags/website/"/>
     
       <category term="html" scheme="www.robotlive.top/tags/html/"/>
     
@@ -194,9 +194,9 @@
     
       <category term="github" scheme="www.robotlive.top/tags/github/"/>
     
-      <category term="hexo" scheme="www.robotlive.top/tags/hexo/"/>
-    
       <category term="website" scheme="www.robotlive.top/tags/website/"/>
+    
+      <category term="hexo" scheme="www.robotlive.top/tags/hexo/"/>
     
   </entry>
   
