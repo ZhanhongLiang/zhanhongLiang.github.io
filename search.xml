@@ -2,6 +2,226 @@
 <search>
   <entry>
     <title>git</title>
+    <url>/2020/05/28/NoteGit/</url>
+    <content><![CDATA[<ul>
+<li><p>Git前言</p>
+</li>
+<li><p>Git使用技巧</p>
+</li>
+<li><p>Git原理理解</p>
+</li>
+<li><p>自定义Git库（用树莓派来作为服务器进行Git管理）</p>
+</li>
+<li><p>作业</p>
+</li>
+<li><p>Git提交作业方式操作注意事项</p>
+</li>
+<li><p>问题</p>
+</li>
+<li><p>参照</p>
+</li>
+<li><p>文献资料文档</p>
+<hr>
+</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="1-Git前言"><a href="#1-Git前言" class="headerlink" title="1.Git前言"></a>1.Git前言</h1><p>  首先我是刚刚接触Git的，之前没有了解过有关SVN和CVS，但是知道它是集中式的管理库，后来linus自己用了两周写出了Git，emmmmm，大佬果然是大佬，之前那段时间可能懒得写，所以才不写，我也懒得说linux和SVN之间的爱恨情仇了，只要记住，Git是分布式的文件管理系统，每台电脑都可以当服务器进行管理，只要有别人的公钥就行了，废话多说，下面来介绍Git的使用技巧（<strong>仅是入门水平，希望指出错误</strong>）！！！！</p>
+<h1 id="2-Git使用技巧"><a href="#2-Git使用技巧" class="headerlink" title="2.Git使用技巧"></a>2.Git使用技巧</h1><p>（<strong>1）1.Git的使用思路与步骤</strong></p>
+<p>STEP1- 创建库（Created）</p>
+<p>STEP2- 提交文档（Commit)</p>
+<p>（STEP2.1-退回上次修改/重回未来）</p>
+<p>（STEP2.2-删除）</p>
+<p><strong>（STEP2.3-创建分支（master分支、dev分支、feature分支）和修改冲突）</strong></p>
+<p>STEP3-推送关联Github或者Gitee（remote)</p>
+<p>（STEP3.1-拉取Github的项目文档）(pull)</p>
+<p>STEP4-推送文档(push)</p>
+<p>（STEP4.1-推送tags版本号，与commit挂钩）(tag)</p>
+<p><strong>STEP1-创建库</strong></p>
+<p>打开了Gitbash，顾名思义，分布式管理库也就是人手一台电脑就是库，所以我们要创建一个空库，方便我们管理自己的文件那么这个时候我们就要创建一个目录了，<code>mkdir &lt;file&gt;</code>这个命令（emmm，Git本来就是linus开发的，别问我为什么和Linux系统的一样）</p>
+<p>第一步当然就是用<code>git init</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir learngit</span><br><span class="line">$ cd learngit</span><br><span class="line">$ pwd</span><br><span class="line">&#x2F;Users&#x2F;michael&#x2F;learngit</span><br></pre></td></tr></table></figure>
+
+<p>然后就将当前的目录作为库的目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in &#x2F;Users&#x2F;michael&#x2F;learngit&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>STEP2- 提交文档（Commit)</strong></p>
+<p>然后用Vi或者nano编写代码或者文档，或者自己在外面编写，<strong>注意一定要放在当前目录下！！！</strong></p>
+<p>然后添加和提交(-m是提交说明)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add &lt;file&gt;</span><br><span class="line">$ $ git commit -m &quot;message&quot;</span><br><span class="line">[master (root-commit) eaadf4e] wrote a readme file</span><br><span class="line"> 1 file changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>STEP2.1-退回上次修改</strong>/<strong>重回未来</strong></p>
+<p>首先设想之前修改了几次代码，或者在几个地方修改了几次代码，但是发现要找回之前的代码，我们应该怎么做？？？</p>
+<p>好了，按下面操作。。。。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:06:15 2018 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>看到了一堆文字，这个是关于你之前的提交的东西的记录。。其中最上面的是最近一次提交的，HEAD是当前的版本所在。。。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at e475afc add distributed</span><br></pre></td></tr></table></figure>
+
+<p>好了我们穿越到了之前的一个版本，现在我们要找跟早之前的版本，应该怎么做呢？？？？？？</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+<p>找到相应的commit id用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git reset --hard &lt;commit id&gt;</span><br><span class="line">HEAD is now at 83b0afe append GPL</span><br></pre></td></tr></table></figure>
+
+<p>凡事都有后悔，你第二天想后悔了，那么就用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git reflog</span><br></pre></td></tr></table></figure>
+
+<p>好了重返未来了，你看到了之前的版本，那么就可以找到相应id，像上面一样重回未来。。。。。</p>
+<p><strong>STEP2.2-删除</strong></p>
+<p>你有两个选择，一是确实要从版本库中删除该文件，那就用命令<code>git rm</code>删掉，并且<code>git commit</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git rm test.txt</span><br><span class="line">rm &#39;test.txt&#39;</span><br><span class="line"></span><br><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master d46f35e] remove test.txt</span><br><span class="line"> 1 file changed, 1 deletion(-)</span><br><span class="line"> delete mode 100644 test.txt</span><br></pre></td></tr></table></figure>
+
+<p>另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout -- test.txt</span><br></pre></td></tr></table></figure>
+
+<p><code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。</p>
+<p><strong>注意：从来没有被添加到版本库就被删除的文件，是无法恢复的！</strong></p>
+<p><strong>STEP2.3-创建分支（master分支、dev分支、feature分支）和修改冲突</strong></p>
+<p>首先，我们创建<code>dev</code>分支，然后切换到<code>dev</code>分支：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout -b dev</span><br><span class="line">Switched to a new branch &#39;dev&#39;</span><br></pre></td></tr></table></figure>
+
+<p>然后，用<code>git branch</code>命令查看当前分支：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* dev</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
+
+<p>然后我们修改了dev分支里面的某个文件，添加并提交！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt </span><br><span class="line">$ git commit -m &quot;branch test&quot;</span><br><span class="line">[dev b17d20e] branch test</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p>现在，<code>dev</code>分支的工作完成，我们就可以切换回<code>master</code>分支：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch &#39;master&#39;</span><br></pre></td></tr></table></figure>
+
+<p><strong>合并分支！！！！</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git merge --no-ff dev</span><br><span class="line">Updating d46f35e..b17d20e</span><br><span class="line">Fast-forward</span><br><span class="line"> readme.txt | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p>删除分支！！！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch -d dev</span><br><span class="line">Deleted branch dev (was b17d20e).</span><br></pre></td></tr></table></figure>
+
+<p>再次查看分支，你会发现只剩下master分支了！！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p>在这里我们也许会有疑问，为什么不能在master上面修改并且提交呢？？<strong>答案是不能</strong>，因为这会产生冲突，这个时候我们要手动修改。。。。。。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is ahead of &#39;origin&#x2F;master&#39; by 2 commits.</span><br><span class="line">  (use &quot;git push&quot; to publish your local commits)</span><br><span class="line"></span><br><span class="line">You have unmerged paths.</span><br><span class="line">  (fix conflicts and run &quot;git commit&quot;)</span><br><span class="line">  (use &quot;git merge --abort&quot; to abort the merge)</span><br><span class="line"></span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)</span><br><span class="line"></span><br><span class="line">	both modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>产生了冲突！！！我们要手动将master的修改了，才能进行合并。。。</p>
+<p><img src="https://static.liaoxuefeng.com/files/attachments/919023260793600/0" alt=""></p>
+<p>这个时候我们看图里，这个是现代公司一般都采用的模式，master是主要分支，dev是提交分支,其余的都是我们自己的工作分支，平时都是提交到dev分支里面，最总才汇聚成master分支（最总版本）</p>
+<p>还有一个就是bug修复的时候，我们应该怎么做呢？？这个时候不能提交当前的工作，但是急需去修复bug，那么只能扔下手头工作去修复bug。按下面操作！！！！</p>
+<p>Git还提供了一个<code>stash</code>功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git stash</span><br><span class="line">Saved working directory and index state WIP on dev: f52c633 add merge</span><br></pre></td></tr></table></figure>
+
+<p>首先确定要在哪个分支上修复bug，假定需要在<code>master</code>分支上修复，就从<code>master</code>创建临时分支：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch &#39;master&#39;</span><br><span class="line">Your branch is ahead of &#39;origin&#x2F;master&#39; by 6 commits.</span><br><span class="line">  (use &quot;git push&quot; to publish your local commits)</span><br><span class="line"></span><br><span class="line">$ git checkout -b issue-101</span><br><span class="line">Switched to a new branch &#39;issue-101&#39;</span><br></pre></td></tr></table></figure>
+
+<p>然后按照之前的步骤！！！！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout dev</span><br><span class="line">Switched to branch &#39;dev&#39;</span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch dev</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+
+<p>工作区是干净的，刚才的工作现场存到哪去了？用<code>git stash list</code>命令看看：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: WIP on dev: f52c633 add merge</span><br></pre></td></tr></table></figure>
+
+<p>用<code>git stash pop</code>，恢复的同时把stash内容也删了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git stash pop</span><br><span class="line">On branch dev</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">	new file:   hello.py</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">	modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Dropped refs&#x2F;stash@&#123;0&#125; (5d677e2ee266f39ea296182fb2354265b91b3b2a)</span><br></pre></td></tr></table></figure>
+
+<p>假如我们要强行删除没有合并的分支！！</p>
+<p>现在我们强行删除：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch -D feature-vulcan</span><br><span class="line">Deleted branch feature-vulcan (was 287773e).</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>STEP3-推送关联Github或者Gitee（remote)</strong></p>
+<p>远程库的默认名字是origin，但是通常就是github和gitee这两个，我们可以这样关联，</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add github git@github.com:ZhanhongLinag&#x2F;Opencv.git</span><br><span class="line">git remote add gitee git@github.com:chinwongleung&#x2F;Opencv.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看远程库信息，使用<code>git remote -v</code>；</li>
+<li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li>
+<li>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</li>
+<li>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</li>
+<li>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream branch-name origin/branch-name</code>；</li>
+<li>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</li>
+</ul>
+<p><strong>STEP4-推送文档(push)</strong></p>
+<p>推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>如果要推送其他分支，比如<code>dev</code>，就改成：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin dev</span><br></pre></td></tr></table></figure>
+
+<p>但是，并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？</p>
+<ul>
+<li><code>master</code>分支是主分支，因此要时刻与远程同步；</li>
+<li><code>dev</code>分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；</li>
+<li>bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；</li>
+<li>feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。</li>
+</ul>
+<p>总之，就是在Git中，分支完全可以在本地自己藏着玩，是否推送，视你的心情而定</p>
+<p><strong>STEP4.1-推送tags版本号，与commit挂钩</strong></p>
+<p>找到历史提交的commit id，然后打上就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log --pretty&#x3D;oneline --abbrev-commit</span><br><span class="line">12a631b (HEAD -&gt; master, tag: v1.0, origin&#x2F;master) merged bug fix 101</span><br><span class="line">4c805e2 fix bug 101</span><br><span class="line">e1e9c68 merge with no-ff</span><br><span class="line">f52c633 add merge</span><br><span class="line">cf810e4 conflict fixed</span><br><span class="line">5dc6824 &amp; simple</span><br><span class="line">14096d0 AND simple</span><br><span class="line">b17d20e branch test</span><br><span class="line">d46f35e remove test.txt</span><br><span class="line">b84166e add test.txt</span><br><span class="line">519219b git tracks changes</span><br><span class="line">e43a48b understand how stage works</span><br><span class="line">1094adb append GPL</span><br><span class="line">e475afc add distributed</span><br><span class="line">eaadf4e wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>比方说要对<code>add merge</code>这次提交打标签，它对应的commit id是<code>f52c633</code>，敲入命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -a v0.9 -m &#39;message&#39; &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+
+<p>再用命令<code>git tag</code>查看标签：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag</span><br><span class="line">v0.9</span><br><span class="line">v1.0</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签。</strong></p>
+<p>好了到现在已经入门了Git了，我们可以进行相应的项目推送了！！！！</p>
+<h1 id="3-Git原理理解"><a href="#3-Git原理理解" class="headerlink" title="3.Git原理理解"></a>3.Git原理理解</h1><p><strong>3.1-工作区和版本区</strong></p>
+<p>就是你在电脑里能看到的目录，比如我的<code>learngit</code>文件夹就是一个工作区：</p>
+<p>工作区：</p>
+<p><img src="https://raw.githubusercontent.com/ZhanhongLiang/Note-Git/master/1.png" alt=""></p>
+<p>工作区有一个隐藏目录<code>.git</code>，这个不算工作区，而是Git的版本库。</p>
+<p>Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
+<p>版本区：</p>
+<p><img src="https://static.liaoxuefeng.com/files/attachments/919020037470528/0" alt=""></p>
+<p>前面讲了我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
+<p>第一步是用<code>git add</code>把文件添加进去，实际上就是把文件修改添加到暂存区；</p>
+<p>第二步是用<code>git commit</code>提交更改，实际上就是把暂存区的所有内容提交到当前分支。</p>
+<p>因为我们创建Git版本库时，Git自动为我们创建了唯一一个<code>master</code>分支，所以，现在，<code>git commit</code>就是往<code>master</code>分支上提交更改。</p>
+<p>你可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</p>
+<h1 id="4-自定义Git库（用树莓派来作为服务器进行Git管理）"><a href="#4-自定义Git库（用树莓派来作为服务器进行Git管理）" class="headerlink" title="4.自定义Git库（用树莓派来作为服务器进行Git管理）"></a>4.自定义Git库（用树莓派来作为服务器进行Git管理）</h1><p>待续更新！！！！！</p>
+<h1 id="5-作业"><a href="#5-作业" class="headerlink" title="5.作业"></a>5.作业</h1><p><strong>作业：自己创立一个github和gitee账号，并且尝试推送练习，最后用截图提交上来。</strong></p>
+<p><strong>提交方式：自己上传我的github里面，github账号：<a href="https://github.com/ZhanhongLiang/Homework" target="_blank" rel="noopener">https://github.com/ZhanhongLiang/Homework</a></strong></p>
+<p><strong>截止日期：8月26号！！！</strong></p>
+<h1 id="6-Git提交作业操作注意事项："><a href="#6-Git提交作业操作注意事项：" class="headerlink" title="6.Git提交作业操作注意事项："></a>6.Git提交作业操作注意事项：</h1><p>作业完成了的，可以看一下这里的提交注意事项！！！！注意注意注意！！！重要的事情说三遍，如果没有完成的，可以在qq群/论坛（<a href="http://152.136.100.23/forum.php?mod=forumdisplay&amp;fid=43)/github(https://github.com/ZhanhongLiang/Note-Git)/gitee(https://gitee.com/chinwongleung/NoteGit)里面进行下载。" target="_blank" rel="noopener">http://152.136.100.23/forum.php?mod=forumdisplay&amp;fid=43)/github(https://github.com/ZhanhongLiang/Note-Git)/gitee(https://gitee.com/chinwongleung/NoteGit)里面进行下载。</a></p>
+<p>前提：首先你已经有了github账号和git了。</p>
+<p>然后第一步你要先将你的账号用户名发给我一份，方便我添加协助者，然后你可以在自己的本地仓库里面创建自己的dev分支，注意是从master分支里面下载我的作业，<strong>提交作业是在dev分支里面，因为master分支是用来进行公布作业和代码的！！！一定要注意这个！！！</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote github&#x2F;dev dev</span><br></pre></td></tr></table></figure>
+
+<p>一定要注意的是dev分支不是master分支。</p>
+<p>注意：如果你已经别人已经推送了，你自已不能提交上去，提示你的是冲突了，那么你用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull github&#x2F;dev dev</span><br></pre></td></tr></table></figure>
+
+<p>这一句话可以解决冲突，然后合并一下，<code>git add &lt;file&gt;</code>和，<code>git commit</code>，然后再push一下就可以了。。。</p>
+<h1 id="7-问题"><a href="#7-问题" class="headerlink" title="7.问题"></a>7.问题</h1><p>Windows环境：</p>
+<p>打开</p>
+<blockquote>
+<p>C:\Windows\System32\drivers\etc\hosts     </p>
+</blockquote>
+<blockquote>
+<p>添加一行：13.229.188.59　　github.com<br>测试</p>
+</blockquote>
+<p>这里写图片描述</p>
+<p><img src="https://raw.githubusercontent.com/ZhanhongLiang/Note-Git/master/2.png" alt=""></p>
+<p>可以看见它又变了，连接到另一个服务器上了。<br>但是不慌，将这个IP也加上去就行了。</p>
+<h1 id="8-参照"><a href="#8-参照" class="headerlink" title="8.参照"></a>8.参照</h1><p>廖雪峰的Git文档。</p>
+<p><a href="https://blog.csdn.net/lvsehaiyang1993/article/details/80881433" target="_blank" rel="noopener">https://blog.csdn.net/lvsehaiyang1993/article/details/80881433</a></p>
+<h1 id="9-文献资料文档"><a href="#9-文献资料文档" class="headerlink" title="9.文献资料文档"></a>9.文献资料文档</h1><p><a href="https://github.com/ZhanhongLiang/Note-Git/blob/master/git-cheatsheet.pdf" target="_blank" rel="noopener">https://github.com/ZhanhongLiang/Note-Git/blob/master/git-cheatsheet.pdf</a></p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git</title>
     <url>/2020/05/30/git/</url>
     <content><![CDATA[<ul>
 <li><p>Git前言</p>
@@ -231,239 +451,6 @@
         <tag>js</tag>
         <tag>animate</tag>
         <tag>website</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git</title>
-    <url>/2020/05/28/NoteGit/</url>
-    <content><![CDATA[<ul>
-<li><p>Git前言</p>
-</li>
-<li><p>Git使用技巧</p>
-</li>
-<li><p>Git原理理解</p>
-</li>
-<li><p>自定义Git库（用树莓派来作为服务器进行Git管理）</p>
-</li>
-<li><p>作业</p>
-</li>
-<li><p>Git提交作业方式操作注意事项</p>
-</li>
-<li><p>问题</p>
-</li>
-<li><p>参照</p>
-</li>
-<li><p>文献资料文档</p>
-<hr>
-</li>
-</ul>
-<a id="more"></a>
-
-<h1 id="1-Git前言"><a href="#1-Git前言" class="headerlink" title="1.Git前言"></a>1.Git前言</h1><p>  首先我是刚刚接触Git的，之前没有了解过有关SVN和CVS，但是知道它是集中式的管理库，后来linus自己用了两周写出了Git，emmmmm，大佬果然是大佬，之前那段时间可能懒得写，所以才不写，我也懒得说linux和SVN之间的爱恨情仇了，只要记住，Git是分布式的文件管理系统，每台电脑都可以当服务器进行管理，只要有别人的公钥就行了，废话多说，下面来介绍Git的使用技巧（<strong>仅是入门水平，希望指出错误</strong>）！！！！</p>
-<h1 id="2-Git使用技巧"><a href="#2-Git使用技巧" class="headerlink" title="2.Git使用技巧"></a>2.Git使用技巧</h1><p>（<strong>1）1.Git的使用思路与步骤</strong></p>
-<p>STEP1- 创建库（Created）</p>
-<p>STEP2- 提交文档（Commit)</p>
-<p>（STEP2.1-退回上次修改/重回未来）</p>
-<p>（STEP2.2-删除）</p>
-<p><strong>（STEP2.3-创建分支（master分支、dev分支、feature分支）和修改冲突）</strong></p>
-<p>STEP3-推送关联Github或者Gitee（remote)</p>
-<p>（STEP3.1-拉取Github的项目文档）(pull)</p>
-<p>STEP4-推送文档(push)</p>
-<p>（STEP4.1-推送tags版本号，与commit挂钩）(tag)</p>
-<p><strong>STEP1-创建库</strong></p>
-<p>打开了Gitbash，顾名思义，分布式管理库也就是人手一台电脑就是库，所以我们要创建一个空库，方便我们管理自己的文件那么这个时候我们就要创建一个目录了，<code>mkdir &lt;file&gt;</code>这个命令（emmm，Git本来就是linus开发的，别问我为什么和Linux系统的一样）</p>
-<p>第一步当然就是用<code>git init</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir learngit</span><br><span class="line">$ cd learngit</span><br><span class="line">$ pwd</span><br><span class="line">&#x2F;Users&#x2F;michael&#x2F;learngit</span><br></pre></td></tr></table></figure>
-
-<p>然后就将当前的目录作为库的目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in &#x2F;Users&#x2F;michael&#x2F;learngit&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>STEP2- 提交文档（Commit)</strong></p>
-<p>然后用Vi或者nano编写代码或者文档，或者自己在外面编写，<strong>注意一定要放在当前目录下！！！</strong></p>
-<p>然后添加和提交(-m是提交说明)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add &lt;file&gt;</span><br><span class="line">$ $ git commit -m &quot;message&quot;</span><br><span class="line">[master (root-commit) eaadf4e] wrote a readme file</span><br><span class="line"> 1 file changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>STEP2.1-退回上次修改</strong>/<strong>重回未来</strong></p>
-<p>首先设想之前修改了几次代码，或者在几个地方修改了几次代码，但是发现要找回之前的代码，我们应该怎么做？？？</p>
-<p>好了，按下面操作。。。。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:06:15 2018 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
-
-<p>看到了一堆文字，这个是关于你之前的提交的东西的记录。。其中最上面的是最近一次提交的，HEAD是当前的版本所在。。。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at e475afc add distributed</span><br></pre></td></tr></table></figure>
-
-<p>好了我们穿越到了之前的一个版本，现在我们要找跟早之前的版本，应该怎么做呢？？？？？？</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
-
-<p>找到相应的commit id用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git reset --hard &lt;commit id&gt;</span><br><span class="line">HEAD is now at 83b0afe append GPL</span><br></pre></td></tr></table></figure>
-
-<p>凡事都有后悔，你第二天想后悔了，那么就用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git reflog</span><br></pre></td></tr></table></figure>
-
-<p>好了重返未来了，你看到了之前的版本，那么就可以找到相应id，像上面一样重回未来。。。。。</p>
-<p><strong>STEP2.2-删除</strong></p>
-<p>你有两个选择，一是确实要从版本库中删除该文件，那就用命令<code>git rm</code>删掉，并且<code>git commit</code>：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git rm test.txt</span><br><span class="line">rm &#39;test.txt&#39;</span><br><span class="line"></span><br><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master d46f35e] remove test.txt</span><br><span class="line"> 1 file changed, 1 deletion(-)</span><br><span class="line"> delete mode 100644 test.txt</span><br></pre></td></tr></table></figure>
-
-<p>另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout -- test.txt</span><br></pre></td></tr></table></figure>
-
-<p><code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。</p>
-<p><strong>注意：从来没有被添加到版本库就被删除的文件，是无法恢复的！</strong></p>
-<p><strong>STEP2.3-创建分支（master分支、dev分支、feature分支）和修改冲突</strong></p>
-<p>首先，我们创建<code>dev</code>分支，然后切换到<code>dev</code>分支：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout -b dev</span><br><span class="line">Switched to a new branch &#39;dev&#39;</span><br></pre></td></tr></table></figure>
-
-<p>然后，用<code>git branch</code>命令查看当前分支：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* dev</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
-
-<p>然后我们修改了dev分支里面的某个文件，添加并提交！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt </span><br><span class="line">$ git commit -m &quot;branch test&quot;</span><br><span class="line">[dev b17d20e] branch test</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
-
-<p>现在，<code>dev</code>分支的工作完成，我们就可以切换回<code>master</code>分支：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch &#39;master&#39;</span><br></pre></td></tr></table></figure>
-
-<p><strong>合并分支！！！！</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git merge --no-ff dev</span><br><span class="line">Updating d46f35e..b17d20e</span><br><span class="line">Fast-forward</span><br><span class="line"> readme.txt | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
-
-<p>删除分支！！！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch -d dev</span><br><span class="line">Deleted branch dev (was b17d20e).</span><br></pre></td></tr></table></figure>
-
-<p>再次查看分支，你会发现只剩下master分支了！！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
-
-<p>在这里我们也许会有疑问，为什么不能在master上面修改并且提交呢？？<strong>答案是不能</strong>，因为这会产生冲突，这个时候我们要手动修改。。。。。。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is ahead of &#39;origin&#x2F;master&#39; by 2 commits.</span><br><span class="line">  (use &quot;git push&quot; to publish your local commits)</span><br><span class="line"></span><br><span class="line">You have unmerged paths.</span><br><span class="line">  (fix conflicts and run &quot;git commit&quot;)</span><br><span class="line">  (use &quot;git merge --abort&quot; to abort the merge)</span><br><span class="line"></span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)</span><br><span class="line"></span><br><span class="line">	both modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>产生了冲突！！！我们要手动将master的修改了，才能进行合并。。。</p>
-<p><img src="https://static.liaoxuefeng.com/files/attachments/919023260793600/0" alt=""></p>
-<p>这个时候我们看图里，这个是现代公司一般都采用的模式，master是主要分支，dev是提交分支,其余的都是我们自己的工作分支，平时都是提交到dev分支里面，最总才汇聚成master分支（最总版本）</p>
-<p>还有一个就是bug修复的时候，我们应该怎么做呢？？这个时候不能提交当前的工作，但是急需去修复bug，那么只能扔下手头工作去修复bug。按下面操作！！！！</p>
-<p>Git还提供了一个<code>stash</code>功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git stash</span><br><span class="line">Saved working directory and index state WIP on dev: f52c633 add merge</span><br></pre></td></tr></table></figure>
-
-<p>首先确定要在哪个分支上修复bug，假定需要在<code>master</code>分支上修复，就从<code>master</code>创建临时分支：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch &#39;master&#39;</span><br><span class="line">Your branch is ahead of &#39;origin&#x2F;master&#39; by 6 commits.</span><br><span class="line">  (use &quot;git push&quot; to publish your local commits)</span><br><span class="line"></span><br><span class="line">$ git checkout -b issue-101</span><br><span class="line">Switched to a new branch &#39;issue-101&#39;</span><br></pre></td></tr></table></figure>
-
-<p>然后按照之前的步骤！！！！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout dev</span><br><span class="line">Switched to branch &#39;dev&#39;</span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch dev</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
-
-<p>工作区是干净的，刚才的工作现场存到哪去了？用<code>git stash list</code>命令看看：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: WIP on dev: f52c633 add merge</span><br></pre></td></tr></table></figure>
-
-<p>用<code>git stash pop</code>，恢复的同时把stash内容也删了：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git stash pop</span><br><span class="line">On branch dev</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">	new file:   hello.py</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">	modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Dropped refs&#x2F;stash@&#123;0&#125; (5d677e2ee266f39ea296182fb2354265b91b3b2a)</span><br></pre></td></tr></table></figure>
-
-<p>假如我们要强行删除没有合并的分支！！</p>
-<p>现在我们强行删除：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch -D feature-vulcan</span><br><span class="line">Deleted branch feature-vulcan (was 287773e).</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>STEP3-推送关联Github或者Gitee（remote)</strong></p>
-<p>远程库的默认名字是origin，但是通常就是github和gitee这两个，我们可以这样关联，</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add github git@github.com:ZhanhongLinag&#x2F;Opencv.git</span><br><span class="line">git remote add gitee git@github.com:chinwongleung&#x2F;Opencv.git</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查看远程库信息，使用<code>git remote -v</code>；</li>
-<li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li>
-<li>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</li>
-<li>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</li>
-<li>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream branch-name origin/branch-name</code>；</li>
-<li>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</li>
-</ul>
-<p><strong>STEP4-推送文档(push)</strong></p>
-<p>推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
-
-<p>如果要推送其他分支，比如<code>dev</code>，就改成：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin dev</span><br></pre></td></tr></table></figure>
-
-<p>但是，并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？</p>
-<ul>
-<li><code>master</code>分支是主分支，因此要时刻与远程同步；</li>
-<li><code>dev</code>分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；</li>
-<li>bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；</li>
-<li>feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。</li>
-</ul>
-<p>总之，就是在Git中，分支完全可以在本地自己藏着玩，是否推送，视你的心情而定</p>
-<p><strong>STEP4.1-推送tags版本号，与commit挂钩</strong></p>
-<p>找到历史提交的commit id，然后打上就可以了：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log --pretty&#x3D;oneline --abbrev-commit</span><br><span class="line">12a631b (HEAD -&gt; master, tag: v1.0, origin&#x2F;master) merged bug fix 101</span><br><span class="line">4c805e2 fix bug 101</span><br><span class="line">e1e9c68 merge with no-ff</span><br><span class="line">f52c633 add merge</span><br><span class="line">cf810e4 conflict fixed</span><br><span class="line">5dc6824 &amp; simple</span><br><span class="line">14096d0 AND simple</span><br><span class="line">b17d20e branch test</span><br><span class="line">d46f35e remove test.txt</span><br><span class="line">b84166e add test.txt</span><br><span class="line">519219b git tracks changes</span><br><span class="line">e43a48b understand how stage works</span><br><span class="line">1094adb append GPL</span><br><span class="line">e475afc add distributed</span><br><span class="line">eaadf4e wrote a readme file</span><br></pre></td></tr></table></figure>
-
-<p>比方说要对<code>add merge</code>这次提交打标签，它对应的commit id是<code>f52c633</code>，敲入命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -a v0.9 -m &#39;message&#39; &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
-
-<p>再用命令<code>git tag</code>查看标签：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag</span><br><span class="line">v0.9</span><br><span class="line">v1.0</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签。</strong></p>
-<p>好了到现在已经入门了Git了，我们可以进行相应的项目推送了！！！！</p>
-<h1 id="3-Git原理理解"><a href="#3-Git原理理解" class="headerlink" title="3.Git原理理解"></a>3.Git原理理解</h1><p><strong>3.1-工作区和版本区</strong></p>
-<p>就是你在电脑里能看到的目录，比如我的<code>learngit</code>文件夹就是一个工作区：</p>
-<p>工作区：</p>
-<p><img src="https://raw.githubusercontent.com/ZhanhongLiang/Note-Git/master/1.png" alt=""></p>
-<p>工作区有一个隐藏目录<code>.git</code>，这个不算工作区，而是Git的版本库。</p>
-<p>Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
-<p>版本区：</p>
-<p><img src="https://static.liaoxuefeng.com/files/attachments/919020037470528/0" alt=""></p>
-<p>前面讲了我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
-<p>第一步是用<code>git add</code>把文件添加进去，实际上就是把文件修改添加到暂存区；</p>
-<p>第二步是用<code>git commit</code>提交更改，实际上就是把暂存区的所有内容提交到当前分支。</p>
-<p>因为我们创建Git版本库时，Git自动为我们创建了唯一一个<code>master</code>分支，所以，现在，<code>git commit</code>就是往<code>master</code>分支上提交更改。</p>
-<p>你可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</p>
-<h1 id="4-自定义Git库（用树莓派来作为服务器进行Git管理）"><a href="#4-自定义Git库（用树莓派来作为服务器进行Git管理）" class="headerlink" title="4.自定义Git库（用树莓派来作为服务器进行Git管理）"></a>4.自定义Git库（用树莓派来作为服务器进行Git管理）</h1><p>待续更新！！！！！</p>
-<h1 id="5-作业"><a href="#5-作业" class="headerlink" title="5.作业"></a>5.作业</h1><p><strong>作业：自己创立一个github和gitee账号，并且尝试推送练习，最后用截图提交上来。</strong></p>
-<p><strong>提交方式：自己上传我的github里面，github账号：<a href="https://github.com/ZhanhongLiang/Homework" target="_blank" rel="noopener">https://github.com/ZhanhongLiang/Homework</a></strong></p>
-<p><strong>截止日期：8月26号！！！</strong></p>
-<h1 id="6-Git提交作业操作注意事项："><a href="#6-Git提交作业操作注意事项：" class="headerlink" title="6.Git提交作业操作注意事项："></a>6.Git提交作业操作注意事项：</h1><p>作业完成了的，可以看一下这里的提交注意事项！！！！注意注意注意！！！重要的事情说三遍，如果没有完成的，可以在qq群/论坛（<a href="http://152.136.100.23/forum.php?mod=forumdisplay&amp;fid=43)/github(https://github.com/ZhanhongLiang/Note-Git)/gitee(https://gitee.com/chinwongleung/NoteGit)里面进行下载。" target="_blank" rel="noopener">http://152.136.100.23/forum.php?mod=forumdisplay&amp;fid=43)/github(https://github.com/ZhanhongLiang/Note-Git)/gitee(https://gitee.com/chinwongleung/NoteGit)里面进行下载。</a></p>
-<p>前提：首先你已经有了github账号和git了。</p>
-<p>然后第一步你要先将你的账号用户名发给我一份，方便我添加协助者，然后你可以在自己的本地仓库里面创建自己的dev分支，注意是从master分支里面下载我的作业，<strong>提交作业是在dev分支里面，因为master分支是用来进行公布作业和代码的！！！一定要注意这个！！！</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote github&#x2F;dev dev</span><br></pre></td></tr></table></figure>
-
-<p>一定要注意的是dev分支不是master分支。</p>
-<p>注意：如果你已经别人已经推送了，你自已不能提交上去，提示你的是冲突了，那么你用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull github&#x2F;dev dev</span><br></pre></td></tr></table></figure>
-
-<p>这一句话可以解决冲突，然后合并一下，<code>git add &lt;file&gt;</code>和，<code>git commit</code>，然后再push一下就可以了。。。</p>
-<h1 id="7-问题"><a href="#7-问题" class="headerlink" title="7.问题"></a>7.问题</h1><p>Windows环境：</p>
-<p>打开</p>
-<blockquote>
-<p>C:\Windows\System32\drivers\etc\hosts     </p>
-</blockquote>
-<blockquote>
-<p>添加一行：13.229.188.59　　github.com<br>测试</p>
-</blockquote>
-<p>这里写图片描述</p>
-<p><img src="https://raw.githubusercontent.com/ZhanhongLiang/Note-Git/master/2.png" alt=""></p>
-<p>可以看见它又变了，连接到另一个服务器上了。<br>但是不慌，将这个IP也加上去就行了。</p>
-<h1 id="8-参照"><a href="#8-参照" class="headerlink" title="8.参照"></a>8.参照</h1><p>廖雪峰的Git文档。</p>
-<p><a href="https://blog.csdn.net/lvsehaiyang1993/article/details/80881433" target="_blank" rel="noopener">https://blog.csdn.net/lvsehaiyang1993/article/details/80881433</a></p>
-<h1 id="9-文献资料文档"><a href="#9-文献资料文档" class="headerlink" title="9.文献资料文档"></a>9.文献资料文档</h1><p><a href="https://github.com/ZhanhongLiang/Note-Git/blob/master/git-cheatsheet.pdf" target="_blank" rel="noopener">https://github.com/ZhanhongLiang/Note-Git/blob/master/git-cheatsheet.pdf</a></p>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>github</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo配置</title>
-    <url>/2020/05/28/newspapername/</url>
-    <content><![CDATA[<h1 id="Hexo配置"><a href="#Hexo配置" class="headerlink" title="Hexo配置"></a>Hexo配置</h1>]]></content>
-      <categories>
-        <category>hexo配置</category>
-      </categories>
-      <tags>
-        <tag>github</tag>
-        <tag>website</tag>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -707,6 +694,19 @@
         <tag>website</tag>
         <tag>html</tag>
         <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo配置</title>
+    <url>/2020/05/28/newspapername/</url>
+    <content><![CDATA[<h1 id="Hexo配置"><a href="#Hexo配置" class="headerlink" title="Hexo配置"></a>Hexo配置</h1>]]></content>
+      <categories>
+        <category>hexo配置</category>
+      </categories>
+      <tags>
+        <tag>github</tag>
+        <tag>website</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
