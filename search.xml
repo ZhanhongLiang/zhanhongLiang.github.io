@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>treePath</title>
+    <url>/2020/06/15/treePath/</url>
+    <content><![CDATA[<h1 id="二叉树路径之和题目汇总"><a href="#二叉树路径之和题目汇总" class="headerlink" title="二叉树路径之和题目汇总"></a>二叉树路径之和题目汇总</h1><h2 id="原理图理解"><a href="#原理图理解" class="headerlink" title="原理图理解"></a>原理图理解</h2><img src="https://github.com/ZhanhongLiang/gitImage/blob/master/image/inorder01.JPG?raw=true"  width="50%" height="50%" />
+
+<img src="https://github.com/ZhanhongLiang/gitImage/blob/master/image/inorder02.JPG?raw=true"  width="50%" height="50%" />
+
+
+
+<h2 id="难度递增"><a href="#难度递增" class="headerlink" title="难度递增"></a>难度递增</h2><ol>
+<li>求二叉树里面路径之和</li>
+<li>求二叉树所有叶子之和</li>
+<li>求二叉树左叶子之和</li>
+<li>给定一个数，判断路径内是否存在根节点到树叶的路径之和等于这个数</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归模板：</span></span><br><span class="line">Travesal(root)&#123;</span><br><span class="line">    <span class="comment">//终止条件</span></span><br><span class="line">    <span class="keyword">if</span>() <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//递归过程</span></span><br><span class="line">    Travesal(root-&gt;left);</span><br><span class="line">    Travesal(root-&gt;right);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//返回什么值</span></span><br><span class="line">    <span class="keyword">return</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//DFS模板方法一</span></span><br><span class="line"><span class="comment">//中序遍历</span></span><br><span class="line">DFS(root)&#123;</span><br><span class="line">    <span class="comment">//定义栈</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="built_in">stack</span>&lt;Type&gt; st;<span class="comment">//Type有可能是int ,string等类型</span></span><br><span class="line">    <span class="comment">//stack&lt;pair&lt;TreeNode*,Type&gt; &gt; st;</span></span><br><span class="line">    <span class="keyword">while</span>(!st.empty() || root)&#123;</span><br><span class="line">        <span class="keyword">while</span>(root)&#123;</span><br><span class="line">            st.push(root);</span><br><span class="line">            <span class="comment">//..做点什么</span></span><br><span class="line">            root = root-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        root = st.top();</span><br><span class="line">        <span class="comment">//..做点什么</span></span><br><span class="line">        st.pop();</span><br><span class="line">        root = root-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//DFS模板方法二</span></span><br><span class="line"><span class="comment">//中序遍历</span></span><br><span class="line">DFS(root,sum)&#123;</span><br><span class="line">    <span class="comment">//定义栈</span></span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="comment">//stack&lt;Type&gt; st;//Type有可能是int ,string等类型</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;pair&lt;TreeNode*,Type&gt; &gt; st;</span><br><span class="line">    <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">    st.push(pair&lt;TreeNode*,<span class="keyword">int</span>&gt;(root,sum-root-&gt;val));</span><br><span class="line">    <span class="keyword">while</span>(!st.empty())&#123;</span><br><span class="line">        TreeNode* pnode = st.top().first;</span><br><span class="line">        nums = st.top().second;</span><br><span class="line">        </span><br><span class="line">        st.pop();</span><br><span class="line">        <span class="keyword">if</span>(pnode-&gt;left == <span class="literal">nullptr</span> &amp;&amp; node-&gt;right == <span class="literal">nullptr</span> &amp;&amp; nums == <span class="number">0</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">//</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pnode-&gt;left)&#123;</span><br><span class="line">            st.push(pair&lt;TreeNode*,<span class="keyword">int</span>&gt;(pnode,nums-pnode-&gt;left-&gt;val));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pnode-&gt;right)&#123;</span><br><span class="line">            st.push(pair&lt;TreeNode*,<span class="keyword">int</span>&gt;(pnode,nums-pnode-&gt;right-&gt;val));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;DFS中序遍历</span><br><span class="line">栈S;</span><br><span class="line">p&#x3D; root;</span><br><span class="line">while(p || S不空)&#123;</span><br><span class="line">    while(p)&#123;</span><br><span class="line">        p入S;</span><br><span class="line">        p &#x3D; p的左子树;</span><br><span class="line">    &#125;</span><br><span class="line">    p &#x3D; S.top 出栈;</span><br><span class="line">    访问p;</span><br><span class="line">    p &#x3D; p的右子树;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>根据模板做题目会比较快有思路</strong></p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>travesal</tag>
+        <tag>数据结构</tag>
+        <tag>c++</tag>
+        <tag>二叉树</tag>
+        <tag>路径之和</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git</title>
     <url>/2020/05/30/git/</url>
     <content><![CDATA[<ul>
@@ -277,7 +319,17 @@
 <p>$$<br>A^{-1}MA<br>$$</p>
 <p>A是基向量变换后，在另外一个坐标系得基向量；</p>
 <p>M为转换矩阵 </p>
-<h2 id="What’s-liner-algebra-defined-in-the-grid"><a href="#What’s-liner-algebra-defined-in-the-grid" class="headerlink" title="What’s liner_algebra defined in the grid?"></a>What’s liner_algebra defined in the grid?</h2><h2 id="column-space-amp-amp-zero-space-amp-amp-rank-amp-amp-Matrix"><a href="#column-space-amp-amp-zero-space-amp-amp-rank-amp-amp-Matrix" class="headerlink" title="column space &amp;&amp; zero space &amp;&amp; rank &amp;&amp; Matrix"></a><strong>column space &amp;&amp; zero space &amp;&amp; rank &amp;&amp; Matrix</strong></h2><h2 id="Determinant"><a href="#Determinant" class="headerlink" title="Determinant"></a>Determinant</h2><h3 id="1-Definition-of-determinant"><a href="#1-Definition-of-determinant" class="headerlink" title="1.Definition of determinant"></a>1.Definition of determinant</h3><ol>
+<h2 id="What’s-liner-algebra-defined-in-the-grid"><a href="#What’s-liner-algebra-defined-in-the-grid" class="headerlink" title="What’s liner_algebra defined in the grid?"></a>What’s liner_algebra defined in the grid?</h2><h2 id="column-space-amp-amp-zero-space-amp-amp-rank-amp-amp-Matrix"><a href="#column-space-amp-amp-zero-space-amp-amp-rank-amp-amp-Matrix" class="headerlink" title="column space &amp;&amp; zero space &amp;&amp; rank &amp;&amp; Matrix"></a><strong>column space &amp;&amp; zero space &amp;&amp; rank &amp;&amp; Matrix</strong></h2><ol>
+<li><strong>非齐次方程和齐次方程的讨论</strong><ol>
+<li>AX=0</li>
+<li>AX=b</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>AX=0</li>
+</ol>
+<h2 id="Determinant"><a href="#Determinant" class="headerlink" title="Determinant"></a>Determinant</h2><h3 id="1-Definition-of-determinant"><a href="#1-Definition-of-determinant" class="headerlink" title="1.Definition of determinant"></a>1.Definition of determinant</h3><ol>
 <li>表示矩阵变换中张缩得比例,定义为det(A)，可以为负数，因为span涉及到翻转，也就是空间翻转问题。反转后det(A为负数)</li>
 <li>2-dim: <ol>
 <li>surface:rank=2(det(A)不等于0)</li>
